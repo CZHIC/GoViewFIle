@@ -124,7 +124,7 @@ Linux版
 
         1. ./goFileView
        
-#访问
+# 访问
         远程预览： http://127.0.0.1:8082/perview/onlinePreview?url=被预览文件的url
         本地上传： http://127.0.0.1:8082/view/upload
         首页 ：    http://127.0.0.1:8082
