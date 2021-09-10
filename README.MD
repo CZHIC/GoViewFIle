@@ -45,9 +45,11 @@ Go View File 是在 goFileView(https://github.com/leeli73/goFileView.git)的基�
 ```
 
 # 项目截图
-https://github.com/CZHIC/GoViewFIle/blob/main/document/1.png
-https://github.com/CZHIC/GoViewFIle/blob/main/document/2.png
-https://github.com/CZHIC/GoViewFIle/blob/main/document/3.png
+![](https://github.com/CZHIC/GoViewFIle/blob/main/document/1.png?raw=true)
+![](https://github.com/CZHIC/GoViewFIle/blob/main/document/1.png?raw=true)
+![](https://github.com/CZHIC/GoViewFIle/blob/main/document/1.png?raw=true)
+
+
 
 
 部署编译
@@ -119,9 +121,9 @@ Linux版
 
         1. ./goFileView
        
-===
-  访问
-    远程预览： http://127.0.0.1:8082/perview/onlinePreview?url=被预览文件的url
-    本地上传： http://127.0.0.1:8082/view/upload
-    首页 ：    http://127.0.0.1:8082
+=====
+      访问
+        远程预览： http://127.0.0.1:8082/perview/onlinePreview?url=被预览文件的url
+        本地上传： http://127.0.0.1:8082/view/upload
+        首页 ：    http://127.0.0.1:8082
 
