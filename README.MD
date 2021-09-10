@@ -18,31 +18,31 @@ Go View File 是在 goFileView(https://github.com/leeli73/goFileView.git)的基�
     Excel转html
 
 
-# 目录介绍
-本项目用的是GoFrame框架
-.
-├── app
-│   ├── api                        控制器
-│   ├── model                      结构体定义
-|   |—— service                    业务逻辑
-├── cache
-│   ├── convert                    转图片后的文件 
-│   ├── download                   预览文件下载目录
-│   ├── local                      本地预览上传
-│   └── pdf                        转pdf后的文件
-├── config
-│   └── config.toml                配置文件
-├── library                        公共方法
-├── log                            日志
-├── main.go
-├── public                         
-│   ├── html                       前端资源html,css,js
-│   └── index.html                 首页
-├── router
-│   └── router.go                  路由
-├── template                       模板
-│   └── index.html                 本地上传页面   
-
+# 目录介绍 (本项目用的是GoFrame框架)
+```
+        .
+        ├── app
+        │   ├── api                        控制器
+        │   ├── model                      结构体定义
+        |   |—— service                    业务逻辑
+        ├── cache
+        │   ├── convert                    转图片后的文件 
+        │   ├── download                   预览文件下载目录
+        │   ├── local                      本地预览上传
+        │   └── pdf                        转pdf后的文件
+        ├── config
+        │   └── config.toml                配置文件
+        ├── library                        公共方法
+        ├── log                            日志
+        ├── main.go
+        ├── public                         
+        │   ├── html                       前端资源html,css,js
+        │   └── index.html                 首页
+        ├── router
+        │   └── router.go                  路由
+        ├── template                       模板
+        │   └── index.html                 本地上传页面   
+```
 
 部署编译
 ========
