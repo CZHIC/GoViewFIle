@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>GoViewFile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/html/css/bootstrap.min.css">
+  <script src="/html/js/jquery-3.0.0.min.js"></script>
+  <script src="/html/js/popper.min.js"></script>
+  <script src="/html/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>GoViewFile</h2>
+    <p>预览服务</p>
+    <body>
+        <form enctype="multipart/form-data" action="/view/upload" method="post">
+            <input type="file" name="upload-file" />
+            <input type="submit" value="upload" style="background-color: #7ED321;width: 76px;height: 36px;color: #FFFFFF" />
+        </form>
+    </body>
+    <br><br>
+
+
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>文件名</th>
+          <th>文件类型</th>
+          <th>调用接口</th>
+          <th>预览</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {{range $key, $value := .AllFile}}
+        <tr>
+          <td>{{$value.name}}</td>
+          <td>{{$value.type}}</td>
+          <td>/view/view?url={{$value.path}}&FileWay=local</td>
+          <td>
+            <a
+              href="/view/view?url={{$value.path}}&FileWay=local" target="_blank">普通预览</a>
+            <a
+              href="/view/view?url={{$value.path}}&type=pdf&FileWay=local" target="_blank">PDF预览</a>
+              <a
+              href="/view/delete?url={{$value.path}}">删除</a>
+          </td>
+        </tr>
+        {{end}}
+
+
+      
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+</html>
