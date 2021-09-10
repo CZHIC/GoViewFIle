@@ -1,7 +1,7 @@
 Go  View File
 ============
 
-Go View File 是在 goFileView(https://github.com/leeli73/goFileView.git)的基础上进行的重构与二次开发。
+Go View File 是在 goFileView的基础上进行的重构与二次开发。(https://github.com/leeli73/goFileView.git)
 
 
 目前已经完成
