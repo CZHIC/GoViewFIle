@@ -76,8 +76,9 @@ Windows版
     
     编译
 
-        1.cd GoViewFile
-        2.go build
+         1.git clone https://github.com/CZHIC/GoViewFIle.git
+         2.cd GoViewFIle
+         3.go build
     运行
 
          GoViewFile.exe
@@ -116,13 +117,13 @@ Linux版
 
     
     编译
-
-        1.cd goFileView
-        2.go build
+        1.git clone https://github.com/CZHIC/GoViewFIle.git
+        2.cd GoViewFIle
+        3.go build
 
     运行
 
-        1. ./goFileView
+        1. ./GoViewFIle
        
 # 访问
         远程预览： http://127.0.0.1:8082/perview/onlinePreview?url=被预览文件的url
