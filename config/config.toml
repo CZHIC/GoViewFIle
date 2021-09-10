@@ -1,0 +1,30 @@
+# HTTP Server.
+[server]
+	address        = ":8082"
+	serverRoot     = "public"
+	serverAgent    = "GoViewFile"
+	logPath        = "/tmp/log/GoViewFile/server"
+	nameToUriType  = 2
+	routeOverWrite = true
+
+# Logger configurations.
+ [logger.access]
+        Path        = "./log/GoViewFile"
+        Level       = "all"
+        Stdout      = true
+        CtxKeys     = ["Trace-Id"]
+        File        = "access-{Ymd}.log"
+[logger.error]
+        Path        = "./log/GoViewFile"
+        Level       = "all"
+        Stdout      = true
+        CtxKeys     = ["Trace-Id"]
+        File        = "error-{Ymd}.log"
+
+# Template view configurations.
+[viewer]
+    path        = "template"
+    defaultFile = "index.html"
+
+
+
