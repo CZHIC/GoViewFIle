@@ -71,8 +71,6 @@ Windows版
         3.安装ImageMagick,官方包,傻瓜式安装即可,安装7.0以上版本 (https://ghostscript.com/download/gsdnld.html)
 
         4.安装GhostScript,官方包,傻瓜式安装即可 (https://ghostscript.com/download/gsdnld.html)
-
-        5.git clone <https://github.com/leeli73/goFileView.git>
     
     编译
 
