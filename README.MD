@@ -71,13 +71,12 @@ Windows版
         3.安装ImageMagick,官方包,傻瓜式安装即可,安装7.0以上版本 (https://ghostscript.com/download/gsdnld.html)
 
         4.安装GhostScript,官方包,傻瓜式安装即可 (https://ghostscript.com/download/gsdnld.html)
-
-        5.git clone <https://github.com/leeli73/goFileView.git>
     
     编译
 
-        1.cd GoViewFile
-        2.go build
+         1.git clone https://github.com/CZHIC/GoViewFIle.git
+         2.cd GoViewFIle
+         3.go build
     运行
 
          GoViewFile.exe
@@ -116,13 +115,13 @@ Linux版
 
     
     编译
-
-        1.cd goFileView
-        2.go build
+        1.git clone https://github.com/CZHIC/GoViewFIle.git
+        2.cd GoViewFIle
+        3.go build
 
     运行
 
-        1. ./goFileView
+        1. ./GoViewFIle
        
 # 访问
         远程预览： http://127.0.0.1:8082/perview/onlinePreview?url=被预览文件的url
