@@ -46,8 +46,11 @@ Go View File 是在 goFileView(https://github.com/leeli73/goFileView.git)的基�
 
 # 项目截图
 ![](https://github.com/CZHIC/GoViewFIle/blob/main/document/1.png?raw=true)
-![](https://github.com/CZHIC/GoViewFIle/blob/main/document/1.png?raw=true)
-![](https://github.com/CZHIC/GoViewFIle/blob/main/document/1.png?raw=true)
+
+![](https://github.com/CZHIC/GoViewFIle/blob/main/document/2.png?raw=true)
+
+![](https://github.com/CZHIC/GoViewFIle/blob/main/document/3.png?raw=true)
+
 
 
 
