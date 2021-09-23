@@ -10,6 +10,7 @@ import (
 	"os"
 	"path"
 	"strconv"
+	"strings"
 
 	"github.com/gogf/gf/net/ghttp"
 )
@@ -49,9 +50,9 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		}
 		filePath = file
 	}
-
+	fileType := strings.ToLower(path.Ext(filePath))
 	//后缀是pdf直接读取文件类容返回
-	if path.Ext(filePath) == ".pdf" {
+	if fileType == ".pdf" {
 		dataByte := service.PdfPageDownload("cache/download/" + path.Base(filePath))
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
 		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
@@ -59,7 +60,7 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		return
 	}
 	//后缀png , jpg ,gif
-	if utils.IsInArr(path.Ext(filePath), service.AllImageEtx) {
+	if utils.IsInArr(fileType, service.AllImageEtx) {
 		dataByte := service.ImagePage(filePath)
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
 		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
@@ -69,7 +70,7 @@ func (a *ViewApi) View(r *ghttp.Request) {
 
 	// 后缀xlsx
 
-	if path.Ext(filePath) == ".xlsx" && reqData.Type != "pdf" {
+	if (fileType == ".xlsx" || fileType == ".xls") && reqData.Type != "pdf" {
 		dataByte := service.ExcelPage(filePath)
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
 		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
@@ -78,7 +79,7 @@ func (a *ViewApi) View(r *ghttp.Request) {
 	}
 
 	// 除了PDF外的其他word文件  (如果没有安装ImageMagick，可以将这个分支去掉)
-	if utils.IsInArr(path.Ext(filePath), service.AllOfficeEtx) && reqData.Type != "pdf" {
+	if utils.IsInArr(fileType, service.AllOfficeEtx) && reqData.Type != "pdf" {
 		pdfPath := utils.ConvertToPDF(filePath)
 		if pdfPath == "" {
 			response.JsonExit(r, -1, "转pdf失败")
@@ -95,7 +96,7 @@ func (a *ViewApi) View(r *ghttp.Request) {
 	}
 
 	// 除了PDF外的其他word文件
-	if utils.IsInArr(path.Ext(filePath), service.AllOfficeEtx) {
+	if utils.IsInArr(fileType, service.AllOfficeEtx) {
 		pdfPath := utils.ConvertToPDF(filePath)
 		if pdfPath == "" {
 			response.JsonExit(r, -1, "转pdf失败")

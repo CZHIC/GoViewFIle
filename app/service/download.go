@@ -1,7 +1,5 @@
 package service
 
-//https://blog.csdn.net/shixingya/article/details/88951782
-
 import (
 	"errors"
 	"io"

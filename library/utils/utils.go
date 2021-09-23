@@ -154,7 +154,7 @@ func IsInArr(key string, arr []string) bool {
 func ExcelParse(filePath string) []map[string]interface{} {
 	xlFile, err := xlsx.OpenFile(filePath)
 	if err != nil {
-		logger.Error("ExcelParse", err)
+		logger.Println("ExcelParseError", err.Error())
 	}
 	resData := []map[string]interface{}{}
 

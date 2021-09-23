@@ -23,7 +23,7 @@ var (
 	Address      string
 	AllFile      map[string]*NowFile
 	ExpireTime   int64
-	AllOfficeEtx = []string{".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".txt"}
+	AllOfficeEtx = []string{".doc", ".docx", ".xls", ".xlsx", ".csv", ".ppt", ".pptx", ".txt"}
 	AllImageEtx  = []string{".jpg", ".png", ".gif"}
 )
 

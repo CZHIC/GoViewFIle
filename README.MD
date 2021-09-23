@@ -58,6 +58,16 @@ Go View File 是在 goFileView的基础上进行的重构与二次开发。(http
 部署编译
 ========
 
+docker 部署
+-----
+    因为没有推送远程镜像，所以需要自己手动打包镜像
+    0 ： 安装docker
+    1 :  git clone https://github.com/CZHIC/GoViewFIle.git
+    2 :  进入GoViewFIle 目录
+    3 ： 打包镜像 docker build -t  goviewfile:v0.7 .
+    4 :  查看镜像 docker images
+    5 :  运行容器  docker run -d -p 8082:8082 goviewfile:v0.7
+
 Windows版
 ----
 
