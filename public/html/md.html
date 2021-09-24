@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>GoViewFile</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
+    
+
+<link rel="stylesheet" href="/html/css/bootstrap.min.css"/>
+<script src="/html/js/jquery-3.0.0.min.js" type="text/javascript"></script>
+<script src="/html/js/jquery.form.min.js" type="text/javascript"></script>
+<script src="/html/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/html/js/watermark.js" type="text/javascript"></script>
+<script src="/html/js/base64.min.js" type="text/javascript"></script>
+
+<script>
+    /**
+     * 初始化水印
+     */
+    function initWaterMark() {
+        let watermarkTxt = 'CZC';
+        if (watermarkTxt !== '') {
+            watermark.init({
+                watermark_txt: 'CZC',
+                watermark_x: 0,
+                watermark_y: 0,
+                watermark_rows: 0,
+                watermark_cols: 0,
+                watermark_x_space: 10,
+                watermark_y_space: 10,
+                watermark_font: '微软雅黑',
+                watermark_fontsize: '18px',
+                watermark_color: 'black',
+                watermark_alpha: 0.2,
+                watermark_width: 180,
+                watermark_height: 80,
+                watermark_angle: 10,
+            });
+        }
+    }
+
+</script>
+<style> 
+   
+    .markdown-body {
+        margin:10px auto; width:60%; border:5px solid #cdcdcd;
+        padding-top: 50px;
+        padding-right: 30px;
+        padding-bottom: 50px;
+        padding-left: 30px;
+    }
+    /* css注释：为了观察效果设置宽度 边框 高度等样式 */ 
+    .markdown-body img {
+    max-width: 100%;
+    box-sizing: content-box;
+    background-color: var(--color-canvas-default);
+}
+</style> 
+</head>
+<body>
+  <div class="markdown-body container-lg">
+    {{url}}
+   </div> 
+    
+</body>
+
+</html>

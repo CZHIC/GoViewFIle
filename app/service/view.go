@@ -10,6 +10,8 @@ import (
 	"time"
 
 	"github.com/gogf/gf/util/gconv"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday"
 )
 
 type NowFile struct {
@@ -74,6 +76,19 @@ func PdfPageDownload(filePath string) []byte {
 	dataStr := string(dataByte)
 	pdfUrl := "/view/img?url=" + path.Base(filePath)
 	dataStr = strings.Replace(dataStr, "{{url}}", pdfUrl, -1)
+	dataByte = []byte(dataStr)
+	return dataByte
+}
+
+func MdPage(filepath string) []byte {
+	Byte, _ := ioutil.ReadFile(filepath)
+	unsafe := blackfriday.MarkdownCommon(Byte)
+	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
+
+	dataByte, _ := ioutil.ReadFile("public/html/md.html")
+	dataStr := string(dataByte)
+
+	dataStr = strings.Replace(dataStr, "{{url}}", string(html), -1)
 	dataByte = []byte(dataStr)
 	return dataByte
 }

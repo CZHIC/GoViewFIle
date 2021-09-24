@@ -51,9 +51,19 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		filePath = file
 	}
 	fileType := strings.ToLower(path.Ext(filePath))
+
+	//MD文件预览
+	if fileType == ".md" {
+		dataByte := service.MdPage(filePath)
+		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
+		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
+		r.Response.Writer.Write([]byte(dataByte))
+		return
+	}
+
 	//后缀是pdf直接读取文件类容返回
 	if fileType == ".pdf" {
-		dataByte := service.PdfPageDownload("cache/download/" + path.Base(filePath))
+		dataByte := service.PdfPageDownload(filePath)
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
 		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
 		r.Response.Writer.Write([]byte(dataByte))
@@ -69,7 +79,6 @@ func (a *ViewApi) View(r *ghttp.Request) {
 	}
 
 	// 后缀xlsx
-
 	if (fileType == ".xlsx" || fileType == ".xls") && reqData.Type != "pdf" {
 		dataByte := service.ExcelPage(filePath)
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
