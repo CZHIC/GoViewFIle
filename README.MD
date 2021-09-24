@@ -1,9 +1,6 @@
 Go  View File
 ============
-
-Go View File 是在 goFileView的基础上进行的重构与二次开发。(https://github.com/leeli73/goFileView.git)
-
-在线体验地址 ：  http://39.97.98.75:8082/view/upload
+在线体验地址(不会经常更新，保留最基本的预览功能) ：  http://39.97.98.75:8082/view/upload
 
 
 
