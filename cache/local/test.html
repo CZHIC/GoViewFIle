@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Access-Control-Allow-Origin" content="r.hrc.oa.com">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      text-align: center;
+    }
+    .img {
+      -webkit-user-select:none;
+      -moz-user-select:none;
+      -ms-user-select:none;
+      width: 100px;
+      height: 100px;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <img class="img" id="girlImg" src="https://r.hrc.oa.com/photo/150/donglxdlu.png" alt=""><br />
+    <button onclick="downloadImg()">保存图片</button>
+    <a href="#" onclick="javascript:savePic();">保存到相册</a>
+    <button onclick="downloadIamge('girlImg', '二维码名称')">保存图片2222</button>
+     <button onclick="getImgBlob()">保存图片4</button>
+    
+  </div>
+  <script>
+    // 第一种方法
+    function downloadImg(){
+      var img = document.getElementById('girlImg');
+      var url = img.src;
+      var a = document.createElement('a');
+      var event = new MouseEvent('click')
+      a.download = 'imgName'
+      a.href = url;
+      a.dispatchEvent(event);
+    }
+
+    // 第二种方法
+    function savePic(){
+      var img = document.getElementById('girlImg');
+      var picurl = img.src;
+      savePicture(picurl);
+    }
+    var triggerEvent = "touchstart";
+    function savePicture(Url){
+      var blob=new Blob([''], {type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = Url;
+      a.download = Url.replace(/(.*\/)*([^.]+.*)/ig,"$2").split("?")[0];
+      var e = document.createEvent('MouseEvents');
+      e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      a.dispatchEvent(e);
+      URL.revokeObjectURL(url);
+    }
+
+    // 第三种方法  解决图片跨域问题
+    function downloadIamge(selector, name) {
+      var image = new Image()
+      // 解决跨域 Canvas 污染问题
+      image.setAttribute('crossOrigin', 'anonymous')
+      image.onload = function () {
+          var canvas = document.createElement('canvas')
+          canvas.width = image.width
+          canvas.height = image.height
+
+          var context = canvas.getContext('2d')
+          context.drawImage(image, 0, 0, image.width, image.height)
+          var url = canvas.toDataURL('image/png')
+          var a = document.createElement('a')
+          // 创建一个单击事件
+          var event = new MouseEvent('click')
+          a.download = name || '下载图片名称'
+          a.href = url
+
+          // 触发a的单击事件
+          a.dispatchEvent(event)
+      }
+
+      image.src = document.getElementById('girlImg').src
+  }
+
+
+   function getImgBlob() {
+         var img = document.getElementById('girlImg');
+          var imgUrl = img.src;
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.setAttribute('crossorigin', 'anonymous') // 允许图片跨域
+            img.setAttribute('referrerpolicy', 'no-referrer'); // 不用带 referer 所有的防止外链的行为都会失效
+            img.onload = () => {
+              const canvas = document.createElement('canvas')
+              canvas.height = img.height
+              canvas.width = img.width
+              const ctx = canvas.getContext('2d')
+              ctx.drawImage(img, 0, 0, img.width, img.height)
+              canvas.toBlob(b => resolve(b))
+            }
+            img.onerror = err => reject(err)
+            img.src = imgUrl
+            alert(img)
+          })
+    }
+  
+  </script>
+</body>
+</html>

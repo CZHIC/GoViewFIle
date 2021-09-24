@@ -1,9 +1,9 @@
 package service
 
 import (
+	"GoViewFile/library/logger"
 	"GoViewFile/library/utils"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"strings"
@@ -104,25 +104,41 @@ func SetFileMap(fileName string) {
 	}
 }
 
-func Monitor() {
-	log.Println("Info: Starting Monitor Thread")
-	for {
-		for _, v := range AllFile {
-			if time.Now().Unix()-v.LastActiveTime > ExpireTime {
-				if v.Md5 != "" {
-					os.RemoveAll("cache/convert/" + v.Md5)
-					os.Remove("cache/download/" + v.Md5 + v.Ext)
-					os.Remove("cache/pdf/" + v.Md5 + ".pdf")
-					log.Println("Cache file ", v.Md5, " delete")
-					delete(AllFile, v.Md5)
-				} else {
-					delete(AllFile, v.Md5)
-					log.Println("Cache file ", v.Md5, " delete with error")
-				}
-			}
-		}
-		time.Sleep(time.Second * 60)
+//清除目录文件
+func ClearFile() {
+	logger.Println("-------------开始清除服务器文件------------")
+	//删除图片目录里的所有文件
+	dir1, err := ioutil.ReadDir("cache/convert")
+	if err != nil {
+		logger.Println("CLearFIle读取目录错误:", err.Error())
+		return
 	}
+	for _, d := range dir1 {
+		os.RemoveAll(path.Join([]string{"cache/convert", d.Name()}...))
+	}
+	logger.Println("cache/convert 已清除")
+
+	//删除本地下载文件目录里的所有文件
+	dir2, err := ioutil.ReadDir("cache/download")
+	if err != nil {
+		logger.Println("CLearFIle读取目录错误:", err.Error())
+		return
+	}
+	for _, d := range dir2 {
+		os.RemoveAll(path.Join([]string{"cache/download", d.Name()}...))
+	}
+	logger.Println("cache/download 已清除")
+	//删除pdf目录里的所有文件
+	dir3, err := ioutil.ReadDir("cache/pdf")
+	if err != nil {
+		logger.Println("CLearFIle读取目录错误:", err.Error())
+		return
+	}
+	for _, d := range dir3 {
+		os.RemoveAll(path.Join([]string{"cache/pdf", d.Name()}...))
+	}
+	logger.Println("cache/pdf 已清除")
+	logger.Println("---------------清除文件已完成--------------")
 }
 
 func GetAllFile(pathname string) ([]map[string]string, error) {
@@ -156,8 +172,6 @@ func ExcelPage(filePath string) []byte {
 			a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  }
 			comment { display:none;  } 	</style>
 	`
-
-	//html := ""
 	html += "<p><center>		<h1>Overview</h1>"
 	for i := 0; i < len(ret); i++ {
 		html += "<A HREF=\"#table" + gconv.String(i) + "\" style = \"font-size: 30px;\"  >Sheet" + gconv.String(i+1) + " </A><br>"
@@ -197,20 +211,6 @@ func ExcelPage(filePath string) []byte {
 		</script><script src="/html/js/excel.header.js" type="text/javascript">
 		</script><link rel="stylesheet" href="/html/css/bootstrap.min.css">
 		`
-	// tmpFilePath := "public/excel/" + path.Base(filePath) + ".html"
-	// file, err := os.Create(tmpFilePath)
-	// if err != nil {
-	// 	logger.Error(err.Error())
-	// 	return nil
-	// }
-	// defer file.Close()
-	// buf := []byte(html)
-	// num := len(buf)
-	// _, er := file.Write(buf[0:num])
-	// if er != nil {
-	// 	logger.Error(er)
-	// }
-
 	dataByte, _ := ioutil.ReadFile("public/html/excel.html")
 	dataStr := string(dataByte)
 

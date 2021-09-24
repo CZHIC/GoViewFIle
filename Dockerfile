@@ -1,4 +1,3 @@
-# docker run -i -t  -p 8082:8082 e17aaaa2656
 FROM centos:7.2.1511
 MAINTAINER czc "651267218@qq.com"
 COPY fonts/* /usr/share/fonts/ChineseFonts/
@@ -29,10 +28,10 @@ ADD config   $WORKDIR/config
 ADD template $WORKDIR/template
 
 # 添加本地上传文件目录
-COPY cache/convert/*  $WORKDIR/cache/convert/
-COPY cache/download/*  $WORKDIR/cache/download/
-COPY cache/local/*  $WORKDIR/cache/local/
-COPY cache/pdf/*  $WORKDIR/cache/pdf/
+COPY cache/convert/  $WORKDIR/cache/convert/
+COPY cache/download/  $WORKDIR/cache/download/
+COPY cache/local/  $WORKDIR/cache/local/
+COPY cache/pdf/  $WORKDIR/cache/pdf/
 ###############################################################################
 #                                   START
 ###############################################################################

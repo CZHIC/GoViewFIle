@@ -108,7 +108,7 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		return
 	}
 
-	response.JsonExit(r, 0, "ok", filePath)
+	response.JsonExit(r, 0, "ok", "暂不支持该类型文件预览！")
 
 }
 
