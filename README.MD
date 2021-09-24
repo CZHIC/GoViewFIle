@@ -18,6 +18,8 @@ Go View File 是在 goFileView的基础上进行的重构与二次开发。(http
 
     本地上传预览
 
+    MarkDown文件预览
+
     Excel转html
 
 
