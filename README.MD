@@ -8,6 +8,7 @@ Go  View File
 
 目前已经完成
 ============
+    docker部署 （不用为运行环境烦恼）
 
     Word、Excel、PPT转码为PDF
 
