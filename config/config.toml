@@ -4,7 +4,8 @@
 	serverRoot     = "public"
 	serverAgent    = "GoViewFile"
 	logPath        = "/tmp/log/GoViewFile/server"
-	nameToUriType  = 2
+        idleTimeout         = "60s"                        # 仅当Keep-Alive开启时有效，请求闲置时间。默认为60秒
+	keepAlive           = true                         # 是否开启Keep-Alive功能。默认true
 	routeOverWrite = true
 
 # Logger configurations.

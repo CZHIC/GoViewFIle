@@ -110,6 +110,7 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		if pdfPath == "" {
 			response.JsonExit(r, -1, "转pdf失败")
 		}
+
 		dataByte := service.PdfPage("cache/pdf/" + path.Base(pdfPath))
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
 		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
@@ -178,7 +179,6 @@ func (a *ViewApi) Pdf(r *ghttp.Request) {
 		return
 	}
 	r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(DataByte)))
-	r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
 	r.Response.Writer.Write(DataByte)
 }
 

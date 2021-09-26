@@ -34,12 +34,21 @@ func OfficePage(imgPath string) []byte {
 	dataByte, _ := ioutil.ReadFile("public/html/office.html")
 	dataStr := string(dataByte)
 	htmlCode := ""
-	for _, fi := range rd {
-		if !fi.IsDir() {
-			htmlCode = htmlCode + `<img class="my-photo" alt="loading" title="查看大图" style="cursor: pointer;"
-									data-src="/view/office?url=` + path.Base(imgPath) + "/" + fi.Name() + `" src="images/loading.gif"
-									">`
-		}
+	// for _, fi := range rd {
+	// 	if !fi.IsDir() {
+	// 		htmlCode = htmlCode + `<img class="my-photo" alt="loading" title="查看大图" style="cursor: pointer;"
+	// 								data-src="/view/office?url=` + path.Base(imgPath) + "/" + fi.Name() + `" src="images/loading.gif"
+	// 								">`
+	// 	}
+	// }
+
+	//----上面方法图片会乱序-----
+	for i := 0; i < len(rd); i++ {
+		htmlCode = htmlCode +
+			`<img class="my-photo" alt="loading" title="查看大图" style="cursor: pointer;"
+		 data-src="/view/office?url=` + path.Base(imgPath) + "/" + gconv.String(i) + ".jpg" +
+			`" src="images/loading.gif" ">`
+
 	}
 	dataStr = strings.Replace(dataStr, "{{AllImages}}", htmlCode, -1)
 	dataByte = []byte(dataStr)

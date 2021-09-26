@@ -12,6 +12,14 @@
             height: 100%;
         }
         .img-area {
+          border:1px black solid;overflow: auto;
+        }
+        .img-area img {
+                display: block;
+                margin: 10px auto;
+             
+        }
+        .img-area {
             text-align: center
         }
     </style>
@@ -20,9 +28,6 @@
 <body bgcolor="#404040">
     <div class="container">
         <div class="img-area">
-            <!---------<img class="my-photo" alt="loading" title="查看大图" style="cursor: pointer;"
-                data-src="http://file.keking.cn/CMMI-配置管理计划/0.jpg" src="images/loading.gif"
-                onclick="changePreviewType('allImages')">----->
                 {{AllImages}}
         </div>
     </div>
