@@ -1,6 +1,8 @@
 FROM centos:7.2.1511
 MAINTAINER czc "651267218@qq.com"
 COPY fonts/* /usr/share/fonts/ChineseFonts/
+
+
 # 设置固定的项目路径
 ENV WORKDIR /var/www/GoViewFile
 ENV LANG en_US.UTF-8
@@ -32,6 +34,17 @@ COPY cache/convert/  $WORKDIR/cache/convert/
 COPY cache/download/  $WORKDIR/cache/download/
 COPY cache/local/  $WORKDIR/cache/local/
 COPY cache/pdf/  $WORKDIR/cache/pdf/
+# jar包，用于将.msg文件转eml文件
+COPY library/emailconverter-2.5.3-all.jar   /usr/local/emailconverter-2.5.3-all.jar
+
+
+# 安装wkhtmltopdf 用于将eml（html）文件转pdf
+RUN yum -y install wget &&\
+    wget http://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm  &&\
+    rpm --rebuilddb && yum install -y openssl && yum install -y xorg-x11-fonts-75dpi &&\
+    rpm -ivh wkhtmltox-0.12.5-1.centos7.x86_64.rpm
+
+
 ###############################################################################
 #                                   START
 ###############################################################################

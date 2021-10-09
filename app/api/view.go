@@ -61,6 +61,19 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		return
 	}
 
+	//MD文件预览
+	if fileType == ".msg" || fileType == ".eml" {
+		pdfPath := utils.MsgToPdf(filePath)
+		if pdfPath == "" {
+			response.JsonExit(r, -1, "转pdf失败")
+		}
+		dataByte := service.PdfPage("cache/pdf/" + path.Base(pdfPath))
+		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
+		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
+		r.Response.Writer.Write([]byte(dataByte))
+		return
+	}
+
 	//后缀是pdf直接读取文件类容返回
 	if fileType == ".pdf" {
 		dataByte := service.PdfPageDownload(filePath)

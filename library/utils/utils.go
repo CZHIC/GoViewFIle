@@ -106,6 +106,35 @@ func ConvertToImg(filePath string) string {
 	}
 }
 
+//只支持linux
+func MsgToPdf(filePath string) string {
+	//判断转换后的pdf文件是否已经存在
+	fileName := strings.Split(path.Base(filePath), ".")[0] + ".pdf"
+	fileOld := "cache/pdf/" + fileName
+	if FileExit(fileOld) {
+		return fileOld
+	}
+	commandName := ""
+	var params []string
+	if runtime.GOOS == "windows" {
+		return ""
+	} else if runtime.GOOS == "linux" {
+		commandName = "java"
+		params = []string{"-jar", "/usr/local/emailconverter-2.5.3-all.jar", filePath, "-o ", "cache/pdf/" + fileName}
+	}
+	if _, ok := interactiveToexec(commandName, params); ok {
+		resultPath := "cache/pdf/" + strings.Split(path.Base(filePath), ".")[0] + ".pdf"
+		if PathExists(resultPath) {
+			log.Printf("Convert <%s> to pdf\n", path.Base(filePath))
+			return resultPath
+		} else {
+			return ""
+		}
+	} else {
+		return ""
+	}
+}
+
 func interactiveToexec(commandName string, params []string) (string, bool) {
 	cmd := exec.Command(commandName, params...)
 	log.Println("cmd:", cmd)
