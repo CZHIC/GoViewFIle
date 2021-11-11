@@ -4,11 +4,6 @@ Go  View File
      http://39.97.98.75:8082/view/upload
      (不会经常更新，保留最基本的预览功能。服务器配置较低，如果出现链接超时请等待几秒刷新重试，或者换Chrome)  
 
-温馨提示
-============
-    随着支持文件类型增多，安装的依赖环境也会更多。所以不建议自己安装环境，直接使用docker镜像更方便。
-    如果需要二次开发， 修改完代码后  go build main.go   然后重新打包镜像即可 ：  docker build -t  goviewfile:v0.7 . 
-    依赖环境请看Dockerafile 
 
 
 目前已经完成
@@ -30,8 +25,6 @@ Go  View File
     预览缓存
 
     定时清理缓存文件
-
-    Email 文件转 pdf (.msg  .eml  转pdf)
 
 
 # 目录介绍 (本项目用的是GoFrame框架)
@@ -154,3 +147,6 @@ Linux版
         本地上传： http://127.0.0.1:8082/view/upload
         首页 ：    http://127.0.0.1:8082
 
+
+# pdfcpu 使用命令
+./library/pdfcpu   watermark add -mode text -- "This is a watermark" "sc:.9, rot:4, mo:2,op:.3,color:.8 .8 .4"  cache/pdf/t_user.pdf   t_user_water.pdf

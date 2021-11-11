@@ -7,6 +7,7 @@ import (
 	"GoViewFile/library/response"
 	"GoViewFile/library/utils"
 	"io/ioutil"
+	"log"
 	"os"
 	"path"
 	"strconv"
@@ -67,7 +68,12 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		if pdfPath == "" {
 			response.JsonExit(r, -1, "转pdf失败")
 		}
-		dataByte := service.PdfPage("cache/pdf/" + path.Base(pdfPath))
+		waterPdf := utils.WaterMark(pdfPath, reqData.WaterMark)
+		if waterPdf == "" {
+			response.JsonExit(r, -1, "添加水印失败")
+		}
+
+		dataByte := service.PdfPage("cache/pdf/" + path.Base(waterPdf))
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
 		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
 		r.Response.Writer.Write([]byte(dataByte))
@@ -76,7 +82,12 @@ func (a *ViewApi) View(r *ghttp.Request) {
 
 	//后缀是pdf直接读取文件类容返回
 	if fileType == ".pdf" {
-		dataByte := service.PdfPageDownload(filePath)
+		waterPdf := utils.WaterMark(filePath, reqData.WaterMark)
+		if waterPdf == "" {
+			response.JsonExit(r, -1, "添加水印失败")
+		}
+		log.Println("waterPdf", waterPdf)
+		dataByte := service.PdfPage("cache/pdf/" + path.Base(waterPdf))
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
 		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
 		r.Response.Writer.Write([]byte(dataByte))
@@ -106,7 +117,12 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		if pdfPath == "" {
 			response.JsonExit(r, -1, "转pdf失败")
 		}
-		imgPath := utils.ConvertToImg(pdfPath)
+		waterPdf := utils.WaterMark(pdfPath, reqData.WaterMark)
+		if waterPdf == "" {
+			response.JsonExit(r, -1, "添加水印失败")
+		}
+
+		imgPath := utils.ConvertToImg(waterPdf)
 		if imgPath == "" {
 			response.JsonExit(r, -1, "转图片失败")
 		}
@@ -123,8 +139,11 @@ func (a *ViewApi) View(r *ghttp.Request) {
 		if pdfPath == "" {
 			response.JsonExit(r, -1, "转pdf失败")
 		}
-
-		dataByte := service.PdfPage("cache/pdf/" + path.Base(pdfPath))
+		waterPdf := utils.WaterMark(pdfPath, reqData.WaterMark)
+		if waterPdf == "" {
+			response.JsonExit(r, -1, "添加水印失败")
+		}
+		dataByte := service.PdfPage("cache/pdf/" + path.Base(waterPdf))
 		r.Response.Writer.Header().Set("content-length", strconv.Itoa(len(dataByte)))
 		r.Response.Writer.Header().Set("content-type:", "text/html;charset=UTF-8")
 		r.Response.Writer.Write([]byte(dataByte))

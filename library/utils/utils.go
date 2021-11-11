@@ -5,6 +5,9 @@ import (
 	"bytes"
 	"crypto/md5"
 	"fmt"
+	"image"
+	"image/color"
+	"image/jpeg"
 	"io"
 	"log"
 	"math/rand"
@@ -17,6 +20,23 @@ import (
 
 	"github.com/tealeg/xlsx"
 )
+
+func CreatePic(watermark string) string {
+	filename := "cache/watermarkpng/test.jpeg"
+	file, err := os.Create(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	alpha := image.NewAlpha(image.Rect(0, 0, 100, 100))
+	for x := 0; x < 100; x++ {
+		for y := 0; y < 100; y++ {
+			alpha.Set(x, y, color.Alpha{uint8(x % 256)}) //设定alpha图片的透明度
+		}
+	}
+	jpeg.Encode(file, alpha, nil)
+	return filename
+}
 
 func ComparePath(a string, b string) bool {
 	if len(a) >= len(b) {
@@ -54,6 +74,27 @@ func ConvertToPDF(filePath string) string {
 		resultPath := "cache/pdf/" + strings.Split(path.Base(filePath), ".")[0] + ".pdf"
 		if PathExists(resultPath) {
 			log.Printf("Convert <%s> to pdf\n", path.Base(filePath))
+			return resultPath
+		} else {
+			return ""
+		}
+	} else {
+		return ""
+	}
+}
+
+//pdf增加水印
+func WaterMark(pdfPath string, watermark string) string {
+	CreatePic(watermark)
+	if watermark == "" {
+		watermark = "CZC"
+	}
+	fileName := watermark + "_" + strings.Split(path.Base(pdfPath), ".")[0] + ".pdf"
+	cmdStr := "/usr/local/pdfcpu watermark add -mode text -- " + "\"" + watermark + "\"" + "  \"sc:1, rot:45, mo:2, c:.2 .7 .9\" " + pdfPath + " cache/pdf/" + fileName
+	if _, ok := Doexec(cmdStr); ok {
+		resultPath := "cache/pdf/" + fileName
+		if PathExists(resultPath) {
+			log.Printf("Convert <%s> to pdf\n", path.Base(resultPath))
 			return resultPath
 		} else {
 			return ""
@@ -135,14 +176,29 @@ func MsgToPdf(filePath string) string {
 	}
 }
 
+//直接通过字符串执行shell命令，不拼接命令
+func Doexec(cmdStr string) (string, bool) {
+	cmd := exec.Command("bash", "-c", cmdStr)
+	log.Println("cmd:", cmd)
+	buf, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Println("Error: <", err.Error(), "> when exec command read out buffer")
+		return "", false
+	} else {
+		return string(buf), true
+	}
+}
+
+//执行shell命令
 func interactiveToexec(commandName string, params []string) (string, bool) {
 	cmd := exec.Command(commandName, params...)
 	log.Println("cmd:", cmd)
 	buf, err := cmd.Output()
+	log.Println(string(buf), err)
 	w := bytes.NewBuffer(nil)
 	cmd.Stderr = w
 	if err != nil {
-		log.Println("Error: <", err, "> when exec command read out buffer")
+		log.Println("Error: <", err.Error(), "> when exec command read out buffer")
 		return "", false
 	} else {
 		return string(buf), true
