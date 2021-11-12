@@ -36,6 +36,8 @@ COPY cache/local/  $WORKDIR/cache/local/
 COPY cache/pdf/  $WORKDIR/cache/pdf/
 # jar包，用于将.msg文件转eml文件
 COPY library/emailconverter-2.5.3-all.jar   /usr/local/emailconverter-2.5.3-all.jar
+
+#pdf 添加水印
 COPY library/pdfcpu    /usr/local/pdfcpu
 
 

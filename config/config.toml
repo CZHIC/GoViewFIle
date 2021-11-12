@@ -26,5 +26,7 @@
 [viewer]
     path        = "template"
     defaultFile = "index.html"
+[WaterMark]  
+    default     =  "CZHIC" 
 
 

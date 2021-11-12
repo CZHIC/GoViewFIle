@@ -26,6 +26,10 @@ Go  View File
 
     定时清理缓存文件
 
+    邮件（.eml  .msg）预览
+
+    添加水印
+
 
 # 目录介绍 (本项目用的是GoFrame框架)
 ```
@@ -148,5 +152,3 @@ Linux版
         首页 ：    http://127.0.0.1:8082
 
 
-# pdfcpu 使用命令
-./library/pdfcpu   watermark add -mode text -- "This is a watermark" "sc:.9, rot:4, mo:2,op:.3,color:.8 .8 .4"  cache/pdf/t_user.pdf   t_user_water.pdf

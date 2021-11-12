@@ -5,9 +5,6 @@ import (
 	"bytes"
 	"crypto/md5"
 	"fmt"
-	"image"
-	"image/color"
-	"image/jpeg"
 	"io"
 	"log"
 	"math/rand"
@@ -18,25 +15,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gogf/gf/frame/g"
 	"github.com/tealeg/xlsx"
 )
-
-func CreatePic(watermark string) string {
-	filename := "cache/watermarkpng/test.jpeg"
-	file, err := os.Create(filename)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-	alpha := image.NewAlpha(image.Rect(0, 0, 100, 100))
-	for x := 0; x < 100; x++ {
-		for y := 0; y < 100; y++ {
-			alpha.Set(x, y, color.Alpha{uint8(x % 256)}) //设定alpha图片的透明度
-		}
-	}
-	jpeg.Encode(file, alpha, nil)
-	return filename
-}
 
 func ComparePath(a string, b string) bool {
 	if len(a) >= len(b) {
@@ -85,12 +66,11 @@ func ConvertToPDF(filePath string) string {
 
 //pdf增加水印
 func WaterMark(pdfPath string, watermark string) string {
-	CreatePic(watermark)
 	if watermark == "" {
-		watermark = "CZC"
+		watermark = g.Config().GetString("WaterMark.default")
 	}
 	fileName := watermark + "_" + strings.Split(path.Base(pdfPath), ".")[0] + ".pdf"
-	cmdStr := "/usr/local/pdfcpu watermark add -mode text -- " + "\"" + watermark + "\"" + "  \"sc:1, rot:45, mo:2, c:.2 .7 .9\" " + pdfPath + " cache/pdf/" + fileName
+	cmdStr := "/usr/local/pdfcpu watermark add -mode text -- " + "\"" + watermark + "\"" + "  \"sc:1, rot:45, mo:2,op:.3, color:.8 .8 .4\" " + pdfPath + " cache/pdf/" + fileName
 	if _, ok := Doexec(cmdStr); ok {
 		resultPath := "cache/pdf/" + fileName
 		if PathExists(resultPath) {
