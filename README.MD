@@ -81,70 +81,43 @@ docker 部署
     4 :  查看镜像 docker images
     5 :  运行容器  docker run -d -p 8082:8082 goviewfile:v0.7
 
-Windows版
-----
 
-    准备
-
-        1.安装Libreoffice,下载官方msi包,傻瓜式安装即可 (https://zh-cn.libreoffice.org)
-
-        2.将Libreoffice安装路径下的program文件夹加入PATH中
-![](https://github.com/leeli73/goFileView/blob/master/media/win_path.png?raw=true)
-
-        3.安装ImageMagick,官方包,傻瓜式安装即可,安装7.0以上版本 (https://ghostscript.com/download/gsdnld.html)
-
-        4.安装GhostScript,官方包,傻瓜式安装即可 (https://ghostscript.com/download/gsdnld.html)
-    
-    编译
-
-         1.git clone https://github.com/CZHIC/GoViewFIle.git
-         2.cd GoViewFIle
-         3.go build
-    运行
-
-         GoViewFile.exe
        
   
 
 Linux版
 ----
-
-    准备
-
-        1.安装Libreoffice:yum install  libreoffice
-
-        2.安装ImageMagick:yum install imagemagick
-
-        4.修改ImageMagick的配置,vi etc/ImageMagick-6/policy.xml
-
-            修改
-            <policy domain="coder" rights="none" pattern="PDF" />
-            为
-            <policy domain="coder" rights="read|write" pattern="PDF" />
-            下方新增一行
-            <policy domain="coder" rights="read|write" pattern="LABEL" />
-
-            wq退出保存
-
-         5 如果出现报错
-            yum install libreoffice-headless
-            yum install libreoffice-writer
-            export DISPLAY=:0.0
-
-        5.安装字体(如果出现乱码)
-            打包一台Windows机器的C:\Windows\Fonts下的所有文件
-            发送到Linux机器上
-            解压后进入Fonts文件夹，依次执行mkfontscale,mkfontdir,fc-cache
+    环境安装： (对照Dockerfile)
+             1: yum install java -y  
+             
+             2：  yum  install deltarpm  -y  &&\          
+                 yum install  libreoffice -y &&\
+                 yum install libreoffice-headless -y &&\
+                 yum install libreoffice-writer -y &&\
+                 yum install ImageMagick -y  &&\
+                 export DISPLAY=:0.0 
+                 
+             3： git clone https://github.com/CZHIC/GoViewFIle.git
+             
+             4： cd GoViewFIle
+             
+             5： COPY library/emailconverter-2.5.3-all.jar   /usr/local/emailconverter-2.5.3-all.jar
+             
+             6： COPY library/pdfcpu    /usr/local/pdfcpu
+             7： chmod 777   /usr/local/pdfcpu
+             
+             8： yum -y install wget &&\
+                 wget http://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm  &&\
+                 rpm --rebuilddb && yum install -y openssl && yum install -y xorg-x11-fonts-75dpi &&\
+                 rpm -ivh wkhtmltox-0.12.5-1.centos7.x86_64.rpm
 
     
     编译
-        1.git clone https://github.com/CZHIC/GoViewFIle.git
-        2.cd GoViewFIle
-        3.go build
+        1. go build ./main.go
 
     运行
 
-        1. ./GoViewFIle
+        1. ./main
        
 # 访问
         远程预览： http://127.0.0.1:8082/view/view?url=被预览文件的url
